@@ -150,14 +150,17 @@ select {
 }
 
 .done {
- background-color: #e64f0f;
+ background-color: grey;
 }
 
 .done h3 {
-  color: #dee0e6;
+  color: rgb(158, 151, 151);
   text-decoration: line-through;
+  font-style: italic;
 }
 
-.done:hover {
-  background-color: #102f5e;
+h5{
+  color: #a6a3a3;
+  text-align: left;
 }
+
