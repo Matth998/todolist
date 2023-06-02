@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-do List</title>
+    <link rel="icon" href="img/berghem-icon.png">
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
@@ -34,13 +35,15 @@
           />
 
           <input type="date" id="todo-date" required>
-          <button type="submit">
+          <button type="submit" title="Começe uma nova tarefa">
             <i class="fa-thin fa-plus"></i>
           </button>
-          
+         
         </div>
       </form>
 
+       <h5>Nome da atividade não pode ter menos de três caracteres</h5>
+      <h5>Nome da atividade não pode ter mais de 255 caracteres</h5>
 
       <form id="edit-form" class="hide">
         <p>Edite sua tarefa</p>
@@ -48,15 +51,12 @@
           <input type="text" id="edit-input" />
           <input type="date" id="todo-date"/>
 
-     
-          <button type="submit">
+          <button type="submit" title="Feito">
             <i class="fa-solid fa-check-double"></i>
           </button>
         </div>
-        <button id="cancel-edit-btn">
-
+        <button id="cancel-edit-btn" >
           <i class="fa-solid fa-delete-left"></i>
-
         </button>
       </form>
 
@@ -82,8 +82,22 @@
           </select>
         </div>
       </div>
+      <!--lista-->
       <div id="todo-list">
-     
+        <!--<div class="todo">
+          <h3>Comer</h3>
+          <button class="finish-todo" title="Marcar e desmarcar task.">
+            <i class= "fa-solid fa-check"></i>
+          </button>
+
+          <button class="edit-todo" title="Editar task.">
+            <i class= "fa-solid fa-pen"></i>
+          </button>
+
+          <button class="remove-todo" title="Eliminar task.">
+            <i class= "fa-solid fa-xmark"></i>
+          </button>-->
+        </div>
       </div>
     </div>
   </body>
