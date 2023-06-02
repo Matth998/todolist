@@ -9,6 +9,7 @@ const searchInput = document.querySelector("#search-input");
 const eraseBtn = document.querySelector("#erase-button");
 const filterBtn = document.querySelector("#filter-select");
 
+
 let oldInputValue;
 
 // Funções
@@ -257,3 +258,4 @@ function input() {
     let valorInput = input.value;
 
 }
+
