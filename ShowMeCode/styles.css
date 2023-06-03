@@ -4,16 +4,18 @@
   margin: 0;
   box-sizing: border-box;
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  color: #28324B;
+  color: #3b3b3b;
 }
 
 body {
-  background-color: #ED4D08;
+  background: linear-gradient(90deg, rgba(110,33,201,1) 0%, rgba(50,17,134,1) 100%);
+  background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
 }
 
 button {
-  background-color: #ED4D08;
-  color: #ED4D08;
+  background-color: #6e21c9;
+  color: #6e21c9;
   border: 2px solid;
   padding: 0.3rem 0.6rem;
   font-size: 1rem;
@@ -27,17 +29,17 @@ button {
 }
 
 button:hover {
-  background-color: #7c300f;
-  color:#7c300f;
+  background-color: #321186;
+  color:#321186;
 }
 
 button:hover > i {
-  color: #28324B;
+  color: #fff;
 }
 
 button i {
   pointer-events: none;
-  color: #102f5e;
+  color: #fff;
   font-weight: bold;
 }
 
@@ -88,7 +90,7 @@ select {
 
 #cancel-edit-btn {
   margin-top: 1rem;
-  color: #444;
+  color: #fdfdfd;
 }
 
 /* Todo Toolbar */
@@ -136,7 +138,7 @@ select {
   justify-content: space-around;
   align-items: center;
   padding: 1rem 1rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #fdfdfd;
   transition: 0.3s;
 }
 
@@ -150,7 +152,7 @@ select {
 }
 
 .done {
- background-color: grey;
+ background-color: #fdfdfd;
 }
 
 .done h3 {
@@ -163,4 +165,17 @@ h5{
   color: #a6a3a3;
   text-align: left;
 }
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
 

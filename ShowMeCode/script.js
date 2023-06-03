@@ -13,13 +13,19 @@ const filterBtn = document.querySelector("#filter-select");
 let oldInputValue;
 
 // Funções
-const saveTodo = (text, done = 0, save = 1) => {
+const saveTodo = (text, date, done = 0, save = 1) => {
+
   const todo = document.createElement("div");
   todo.classList.add("todo");
 
   const todoTitle = document.createElement("h3");
   todoTitle.innerText = text;
   todo.appendChild(todoTitle);
+
+  // Criando o elemento data dentro da nossa div
+  const todoDate = document.createElement('span');
+  todoDate.innerText = date.dateTask;
+  todo.appendChild(todoDate)
 
   const doneBtn = document.createElement("button");
   doneBtn.classList.add("finish-todo");
@@ -42,7 +48,7 @@ const saveTodo = (text, done = 0, save = 1) => {
   }
 
   if (save) {
-    saveTodoLocalStorage({ text, done: 0 });
+    saveTodoLocalStorage({ text, date, done: 0 });
   }
 
   todoList.appendChild(todo);
@@ -126,7 +132,16 @@ todoForm.addEventListener("submit", (e) => {
   const inputValue = todoInput.value;
 
   if (inputValue) {
-    saveTodo(inputValue);
+
+    // instanciando o objeto data para guardar a nossa informação de quando a tarefa foi colocada.
+
+    date = {
+
+      dateTask: new Date().toLocaleDateString()
+
+    }
+
+    saveTodo(inputValue, date);
   }
 });
 
@@ -138,7 +153,6 @@ document.addEventListener("click", (e) => {
   if (parentEl && parentEl.querySelector("h3")) {
     todoTitle = parentEl.querySelector("h3").innerText || "";
   }
-
   if (targetEl.classList.contains("finish-todo")) {
     parentEl.classList.toggle("done");
 
@@ -204,11 +218,14 @@ const getTodosLocalStorage = () => {
   return todos;
 };
 
+
+// Passei o objeto date para o load dos todos
+
 const loadTodos = () => {
   const todos = getTodosLocalStorage();
 
   todos.forEach((todo) => {
-    saveTodo(todo.text, todo.done, 0);
+    saveTodo(todo.text, todo.date, todo.done, 0);
   });
 };
 
@@ -249,10 +266,6 @@ const updateTodoLocalStorage = (todoOldText, todoNewText) => {
 };
 
 loadTodos();
-
-
-
-
 
 function input() {
     let valorInput = input.value;
