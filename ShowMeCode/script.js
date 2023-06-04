@@ -32,6 +32,10 @@ const saveTodo = (text, date, done = 0, save = 1) => {
   doneBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
   todo.appendChild(doneBtn);
 
+  if (done) {
+    todo.classList.add("done"); // Adiciona a classe "done" se a tarefa estiver concluída
+  }
+
   const editBtn = document.createElement("button");
   editBtn.classList.add("edit-todo");
   editBtn.innerHTML = '<i class="fa-solid fa-pen"></i>';
@@ -47,11 +51,16 @@ const saveTodo = (text, date, done = 0, save = 1) => {
     todo.classList.add("done");
   }
 
+
   if (save) {
-    saveTodoLocalStorage({ text, date, done: 0 });
+    saveTodoLocalStorage({
+      text,
+      date,
+      done: 0
+    });
   }
 
-  todoList.appendChild(todo);
+  todoList.insertBefore(todo, todoList.firstChild);
 
   todoInput.value = "";
 };
@@ -60,7 +69,9 @@ const toggleForms = () => {
   editForm.classList.toggle("hide");
   todoForm.classList.toggle("hide");
   todoList.classList.toggle("hide");
+  todoList.classList.remove("done"); // Remove a classe "done" de todos os elementos ao alternar entre os formulários
 };
+
 
 const updateTodo = (text) => {
   const todos = document.querySelectorAll(".todo");
@@ -104,18 +115,18 @@ const filterTodos = (filterValue) => {
 
     case "done":
       todos.forEach((todo) =>
-        todo.classList.contains("done")
-          ? (todo.style.display = "flex")
-          : (todo.style.display = "none")
+        todo.classList.contains("done") ?
+        (todo.style.display = "flex") :
+        (todo.style.display = "none")
       );
 
       break;
 
     case "todo":
       todos.forEach((todo) =>
-        !todo.classList.contains("done")
-          ? (todo.style.display = "flex")
-          : (todo.style.display = "none")
+        !todo.classList.contains("done") ?
+        (todo.style.display = "flex") :
+        (todo.style.display = "none")
       );
 
       break;
@@ -155,7 +166,6 @@ document.addEventListener("click", (e) => {
   }
   if (targetEl.classList.contains("finish-todo")) {
     parentEl.classList.toggle("done");
-
     updateTodoStatusLocalStorage(todoTitle);
   }
 
@@ -253,7 +263,37 @@ const updateTodoStatusLocalStorage = (todoText) => {
   );
 
   localStorage.setItem("todos", JSON.stringify(todos));
+
+  // Mover a tarefa concluída para o final da lista ou para o início, dependendo do estado
+  const todoElements = document.querySelectorAll(".todo");
+
+  todoElements.forEach((todoElement) => {
+    const todoTitle = todoElement.querySelector("h3").innerText;
+    if (todoTitle === todoText) {
+      todoList.removeChild(todoElement);
+
+      if (todos.find((todo) => todo.text === todoText).done) {
+        // Se a tarefa estiver concluída, move para o final da lista
+        moveTodoToBottom(todoElement);
+      } else {
+        // Se a tarefa não estiver concluída, move para o início da lista
+        todoList.insertBefore(todoElement, todoList.firstChild);
+      }
+    }
+  });
 };
+
+
+const moveTodoToBottom = (todoElement) => {
+  // Se a tarefa já estiver no final da lista, não é necessário fazer nada
+  if (todoElement === todoList.lastChild) {
+    return;
+  }
+
+  // Mover a tarefa para o final da lista
+  todoList.appendChild(todoElement);
+};
+
 
 const updateTodoLocalStorage = (todoOldText, todoNewText) => {
   const todos = getTodosLocalStorage();
@@ -265,10 +305,5 @@ const updateTodoLocalStorage = (todoOldText, todoNewText) => {
   localStorage.setItem("todos", JSON.stringify(todos));
 };
 
+
 loadTodos();
-
-function input() {
-    let valorInput = input.value;
-
-}
-
